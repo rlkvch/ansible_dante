@@ -7,16 +7,15 @@ danted:
   internal_port: 1027
   external: "{{ ansible_default_ipv4.interface }}"
   clientmethod: none
-  socksmethod: none
-  user.privileged: root
-  user.notprivileged: nobody
-
-client pass {
-        from: 0.0.0.0/0 to: 0.0.0.0/0
-        log: error connect disconnect
-}
-}
-socks pass {
-        from: 0.0.0.0/0 to: 0.0.0.0/0
-        log: error connect disconnect
-}
+  method: none
+  user:
+    privileged: root
+    notprivileged: nobody
+    libwrap: nobody
+  client:
+    pass:
+      first_client_pass:
+        - "from: 0.0.0.0/0 to: 0.0.0.0/0"
+  pass:
+    first_pass:
+      - "from: 0.0.0.0/0 to: 0.0.0.0/0"
